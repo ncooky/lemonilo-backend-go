@@ -16,6 +16,7 @@ func main() {
 
 	// daftar api
 	e.GET("/members", handlers.GetMembers(db))
+	e.POST("/login", handlers.Login(db))
 	e.POST("/member", handlers.PutMember(db))
 	e.PUT("/member", handlers.EditMember(db))
 	e.DELETE("/member/:id", handlers.DeleteMember(db))
@@ -42,6 +43,8 @@ func migrate(db *sql.DB) {
     CREATE TABLE IF NOT EXISTS member(
         id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 		name VARCHAR NOT NULL,
+		username VARCHAR NOT NULL UNIQUE,
+		password VARCHAR NOT NULL,
 		phone VARCHAR UNIQUE,
 		status INTEGER
     );
